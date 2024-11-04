@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import {cube1} from './geometrias/cubo_1.js';
+import {cube1, cube2, cube3, cube4, cube5, cube6} from './geometrias/cubo_1.js';
 import {plane, plane1, plane2} from './geometrias/plano.js';
 import {ambientLight, spotLightHelper, spotLight} from './luces/luz_ambiente.js';
 
@@ -10,14 +10,43 @@ const renderer = new THREE.WebGLRenderer({antialias:true});
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-
 scene.add(cube1);
+scene.add(cube2);
+scene.add(cube3);
+scene.add(cube4);
+scene.add(cube5);
+scene.add(cube6);
 scene.add(plane);
 scene.add(plane1);
 scene.add(plane2);
 scene.add(ambientLight);
 scene.add(spotLight);
-scene.add(spotLightHelper); // Añadir el helper a la escena
+scene.add(spotLightHelper);
+
+//posiciones
+cube1.position.y = 0.40;
+
+cube2.position.y = -0.05;
+
+cube3.position.z = 0.85;
+
+cube4.position.z = 0.85;
+cube4.position.y = -0.35;
+
+cube5.position.z = 1.5
+cube5.position.y = -0.35;
+
+cube6.position.z = 1.5;
+cube6.position.y = -0.70;
+
+//rotaciones
+cube1.rotation.y = Math.PI/4;
+
+cube2.rotation.y = Math.PI/4;
+
+cube3.rotation.y = Math.PI/4;
+
+cube4.rotation.y = Math.PI/4;
 
 plane.rotation.x = -Math.PI / 2;
 plane.position.y = -0.5;
@@ -29,17 +58,16 @@ plane2.position.y = 4.5;
 
 spotLight.position.set(2, 15, 15);
 spotLight.lookAt(cube1.position);
-spotLight.angle = Math.PI / 4; // ángulo de apertura del foco
-spotLight.distance = 30;       // distancia máxima de la luz
-spotLight.penumbra = 0.5;      // suavidad en los bordes de la luz
-
+spotLight.angle = Math.PI / 4; // apertura del foco
+spotLight.distance = 30;       // distancia
+spotLight.penumbra = 0.5;      // bordes
 
 camera.position.set(2, 5, 10);
 camera.lookAt(cube1.position);
 
 const controls = new OrbitControls(camera, renderer.domElement);
-controls.target = cube1.position; // Enfocar la cámara en el cubo
-controls.enableDamping = true;    // Suavizar el movimiento
+controls.target = cube1.position;
+controls.enableDamping = true;
 controls.dampingFactor = 0.05;
 controls.enableZoom = true;
 
