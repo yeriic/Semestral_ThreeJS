@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-const planeGeometry = new THREE.PlaneGeometry(30, 30);
+const planeGeometry = new THREE.PlaneGeometry(150, 150);
 const planeMaterial = new THREE.MeshStandardMaterial({ color: 0xd4d9fc, side: THREE.DoubleSide });
 export const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 
