@@ -2,50 +2,56 @@ import { CharacterControls } from './characterControls.js';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { plane, plane1, plane2, plane3, plane4, plane5, plane6, plane7 } from './geometrias/plano.js';
+import { plane, plane1, plane2, plane3, plane4, plane5, plane6, plane7, plane8,plane9,plane10 } from './geometrias/plano.js';
 
 
 // SCENE
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xa8def0);
 
-scene.add(plane1);
-scene.add(plane2);
-scene.add(plane3);
-scene.add(plane4);
-scene.add(plane5);
-scene.add(plane6);
-scene.add(plane7);
+scene.add(plane1, plane2, plane3, plane3,plane4, plane5,plane6,plane7,plane8,plane9,plane10);
+
 
 //posiciones
-plane1.position.x = 45.05;
-plane1.position.y = 3.19;
-plane1.position.z = 59.63;
+plane1.position.x = 44.19;
+plane1.position.y = 2.94;
+plane1.position.z = 60.06;
 
-plane2.position.x = 44.60;
-plane2.position.y = 4.90;
-plane2.position.z = 51.26;
+plane2.position.x = 44.55;
+plane2.position.y = 3.40;
+plane2.position.z = 55.03;
 
-plane3.position.x = 58.91;
-plane3.position.y = 5.70;
-plane3.position.z = 51.10;
+plane3.position.x = 35.34;
+plane3.position.y = 3.90;
+plane3.position.z = 52.42;
 
-plane4.position.x = 30.10;
-plane4.position.y = 5.70;
-plane4.position.z = 51.10;
+plane4.position.x = 53.69;
+plane4.position.y = 3.90;
+plane4.position.z = 52.42;
 
-plane5.position.x = 58.46;
-plane5.position.y = 7.90;
-plane5.position.z = 42.74;
+plane5.position.x = 35.34;
+plane5.position.y = 4.96;
+plane5.position.z = 47.57;
 
-plane6.position.x = 29.65;
-plane6.position.y = 7.90;
-plane6.position.z = 42.74;
+plane6.position.x = 53.69;
+plane6.position.y = 4.96;
+plane6.position.z = 47.57;
 
-plane7.position.x = 42.76;
-plane7.position.y = 8.99;
-plane7.position.z = 31.24;
+plane7.position.x = 53.69;
+plane7.position.y = 5.55;
+plane7.position.z = 42.68;
 
+plane8.position.x = 35.34;
+plane8.position.y = 5.55;
+plane8.position.z = 42.68;
+
+plane9.position.x = 35.56;
+plane9.position.y = 6.11;
+plane9.position.z = 35.01;
+
+plane10.position.x = 53.45;
+plane10.position.y = 6.11;
+plane10.position.z = 35.01;
 //rotaciones
 plane1.rotation.x = -Math.PI / 2;
 
@@ -61,11 +67,30 @@ plane6.rotation.x = -Math.PI / 2;
 
 plane7.rotation.x = -Math.PI / 2;
 
+plane8.rotation.x = -Math.PI / 2;
+
+plane9.rotation.x = -Math.PI / 2;
+
+plane10.rotation.x = -Math.PI / 2;
+
+// Crear el trigger (por ejemplo, un cubo invisible)
+const triggerPosition = new THREE.Vector3(35.11, 9.14, 30.82); // Posición del trigger
+const triggerSize = new THREE.Vector3(1, 1, 1); // Tamaño del trigger
+
+const triggerGeometry = new THREE.BoxGeometry(triggerSize.x, triggerSize.y, triggerSize.z);
+const triggerMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true, visible: true }); // Visible para debug
+const triggerMesh = new THREE.Mesh(triggerGeometry, triggerMaterial);
+triggerMesh.position.copy(triggerPosition);
+scene.add(triggerMesh);
+
+// Crear la caja de colisión del trigger
+const triggerBoundingBox = new THREE.Box3().setFromObject(triggerMesh);
+
 // CAMERA
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.y = 5;
+camera.position.y = 10;
 camera.position.z = 5;
-camera.position.x = 0;
+camera.position.x = 5;
 
 // RENDERER
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -109,10 +134,9 @@ loader.load('steveRigV3_2.glb', function (gltf) {
     });
     scene.add(model);
 
-    model.position.set(25, 2, 25);
+    model.position.set(46, 2, 65);
     model.scale.set(1.5, 1.5, 1.5);
-    const axesHelper = new THREE.AxesHelper(5);
-    model.add(axesHelper);
+    
 
     const gltfAnimations = gltf.animations;
     const mixer = new THREE.AnimationMixer(model);
@@ -141,9 +165,9 @@ loader.load('steveRigV3_2.glb', function (gltf) {
 });
 
 // Crear las cajas de colisión para los planos
-const platformBoundingBoxes = [plane1, plane2, plane3, plane4, plane5, plane6, plane7].map(plane => new THREE.Box3().setFromObject(plane));
+const platformBoundingBoxes = [plane1, plane2, plane3, plane4, plane5, plane6, plane7,plane8,plane9,plane10].map(plane => new THREE.Box3().setFromObject(plane));
 
-const platformHelpers = [plane1, plane2, plane3, plane4, plane5, plane6, plane7].map((plane) => {
+const platformHelpers = [plane1, plane2, plane3, plane4, plane5, plane6, plane7,plane8,plane9,plane10].map((plane) => {
     const helper = new THREE.BoxHelper(plane, 0xff0000); // Rojo para las cajas de los planos
     scene.add(helper);
     return helper;
@@ -191,6 +215,12 @@ function animate() {
                     characterMesh.position.y = characterControls.initialY; // Evitar atravesar el suelo
                 }
             }
+             // Verificar colisión con el trigger
+             if (characterBoundingBox.intersectsBox(triggerBoundingBox)) {
+                // Teletransportar al personaje
+                characterMesh.position.set(10, 5, 10); // Nueva posición
+                console.log('Teletransportado!');
+             }
         }
     }
     orbitControls.update();
