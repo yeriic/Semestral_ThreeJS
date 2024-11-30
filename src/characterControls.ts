@@ -1,11 +1,11 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { A, D, DIRECTIONS, S, W } from './utils';
 
 export class CharacterControls {
     model: THREE.Group;
     mixer: THREE.AnimationMixer;
-    animationsMap: Map<string, THREE.AnimationAction> = new Map(); // Walk, Run, Idle, Jump
+    animationsMap: Map<string, THREE.AnimationAction> = new Map(); // , Run, Idle, Jump
     orbitControl: OrbitControls;
     camera: THREE.Camera;
 
@@ -23,10 +23,11 @@ export class CharacterControls {
     runVelocity = 10;
     walkVelocity = 10;
     isJumping: boolean = false; // Estado para controlar si está en salto
-    jumpHeight = 2.5; // Altura máxima del salto
+    jumpHeight = 3; // Altura máxima del salto
     jumpDuration = 0.6; // Duración del salto en segundos
     jumpStartTime: number = 0; // Tiempo de inicio del salto
     initialY: number = 2; // NUEVO: Altura inicial del personaje
+    
     constructor(
         model: THREE.Group,
         mixer: THREE.AnimationMixer,

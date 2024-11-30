@@ -4,7 +4,7 @@ const planeGeometry = new THREE.PlaneGeometry(150, 150);
 const planeMaterial = new THREE.MeshStandardMaterial({ color: 0xd4d9fc, side: THREE.DoubleSide });
 export const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 
-const planeGeometry1 = new THREE.PlaneGeometry(8.13, 4.26);
+const planeGeometry1 = new THREE.PlaneGeometry(8.13, 4.26,);
 const planeMaterial1 = new THREE.MeshStandardMaterial({ color: 0xd4d9fc, side: THREE.DoubleSide });
 export const plane1 = new THREE.Mesh(planeGeometry1, planeMaterial1);
 
