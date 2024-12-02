@@ -9,9 +9,6 @@ import { plane, plane1, plane2, plane3, plane4, plane5, plane6, plane7, plane8,p
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xa8def0);
 
-scene.add(plane1, plane2, plane3, plane3,plane4, plane5,plane6,plane7,plane8,plane9,plane10, plane11, plane12, plane13);
-
-
 //posiciones
 plane1.position.x = 44.19;
 plane1.position.y = 2.94;
@@ -189,9 +186,38 @@ const triggerMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe
 const triggerMesh = new THREE.Mesh(triggerGeometry, triggerMaterial);
 triggerMesh.position.copy(triggerPosition);
 scene.add(triggerMesh);
-
-// Crear la caja de colisión del trigger
 const triggerBoundingBox = new THREE.Box3().setFromObject(triggerMesh);
+
+
+const triggerPosition1 = new THREE.Vector3(57.5, 16.69, -47.95); // Posición del trigger
+const triggerSize1 = new THREE.Vector3(1, 1, 1); // Tamaño del trigger
+
+const triggerGeometry1 = new THREE.BoxGeometry(triggerSize1.x, triggerSize1.y, triggerSize1.z);
+const triggerMaterial1 = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true, visible: true }); // Visible para debug
+const triggerMesh1 = new THREE.Mesh(triggerGeometry1, triggerMaterial1);
+triggerMesh1.position.copy(triggerPosition1);
+scene.add(triggerMesh1);
+const triggerBoundingBox1 = new THREE.Box3().setFromObject(triggerMesh1);
+
+const triggerPosition2 = new THREE.Vector3(-30.99, 12, 42); // Posición del trigger
+const triggerSize2 = new THREE.Vector3(1, 1, 1); // Tamaño del trigger
+
+const triggerGeometry2 = new THREE.BoxGeometry(triggerSize2.x, triggerSize2.y, triggerSize2.z);
+const triggerMaterial2 = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true, visible: true }); // Visible para debug
+const triggerMesh2 = new THREE.Mesh(triggerGeometry2, triggerMaterial2);
+triggerMesh2.position.copy(triggerPosition2);
+scene.add(triggerMesh2);
+const triggerBoundingBox2 = new THREE.Box3().setFromObject(triggerMesh2);
+
+const triggerPosition3 = new THREE.Vector3(-45.90, 12.52, -64.7643); // Posición del trigger
+const triggerSize3 = new THREE.Vector3(1, 1, 1); // Tamaño del trigger
+
+const triggerGeometry3 = new THREE.BoxGeometry(triggerSize3.x, triggerSize3.y, triggerSize3.z);
+const triggerMaterial3 = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true, visible: true }); // Visible para debug
+const triggerMesh3 = new THREE.Mesh(triggerGeometry3, triggerMaterial3);
+triggerMesh3.position.copy(triggerPosition3);
+scene.add(triggerMesh3);
+const triggerBoundingBox3 = new THREE.Box3().setFromObject(triggerMesh3);
 
 // CAMERA
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -241,7 +267,7 @@ loader.load('steveRigV3_2.glb', function (gltf) {
     });
     scene.add(model);
 
-    model.position.set(-46.31, 7, -26.17);
+    model.position.set(45,2,65);
     model.scale.set(1.5, 1.5, 1.5);
     
 
@@ -305,7 +331,6 @@ function animate() {
         characterControls.update(mixerUpdateDelta, keysPressed);
 
 
-        // Actualizar la caja de colisión del personaje
         if (characterMesh) {
             characterBoundingBox.setFromObject(characterMesh);
 
@@ -331,7 +356,25 @@ function animate() {
              // Verificar colisión con el trigger
              if (characterBoundingBox.intersectsBox(triggerBoundingBox)) {
                 // Teletransportar al personaje
-                characterMesh.position.set(10, 5, 10); // Nueva posición
+                characterMesh.position.set(25.83, 7.477, -43.3); // Nueva posición
+                console.log('Teletransportado!');
+             }
+
+             if (characterBoundingBox.intersectsBox(triggerBoundingBox1)) {
+                // Teletransportar al personaje
+                characterMesh.position.set(-63.72, 4.81, 35.85); // Nueva posición
+                console.log('Teletransportado!');
+             }
+
+             if (characterBoundingBox.intersectsBox(triggerBoundingBox2)) {
+                // Teletransportar al personaje
+                characterMesh.position.set(-46.319,8.53,-26.171); // Nueva posición
+                console.log('Teletransportado!');
+             }
+
+             if (characterBoundingBox.intersectsBox(triggerBoundingBox3)) {
+                // Teletransportar al personaje
+                characterMesh.position.set(45,2,65); // Nueva posición
                 console.log('Teletransportado!');
              }
         }
