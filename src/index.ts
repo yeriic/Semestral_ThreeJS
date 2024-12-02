@@ -182,10 +182,8 @@ const triggerPosition = new THREE.Vector3(35.11, 9.14, 30.82); // Posición del 
 const triggerSize = new THREE.Vector3(1, 1, 1); // Tamaño del trigger
 
 const triggerGeometry = new THREE.BoxGeometry(triggerSize.x, triggerSize.y, triggerSize.z);
-const triggerMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true, visible: true }); // Visible para debug
-const triggerMesh = new THREE.Mesh(triggerGeometry, triggerMaterial);
+const triggerMesh = new THREE.Mesh(triggerGeometry);
 triggerMesh.position.copy(triggerPosition);
-scene.add(triggerMesh);
 const triggerBoundingBox = new THREE.Box3().setFromObject(triggerMesh);
 
 
@@ -193,30 +191,24 @@ const triggerPosition1 = new THREE.Vector3(57.5, 16.69, -47.95); // Posición de
 const triggerSize1 = new THREE.Vector3(1, 1, 1); // Tamaño del trigger
 
 const triggerGeometry1 = new THREE.BoxGeometry(triggerSize1.x, triggerSize1.y, triggerSize1.z);
-const triggerMaterial1 = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true, visible: true }); // Visible para debug
-const triggerMesh1 = new THREE.Mesh(triggerGeometry1, triggerMaterial1);
+const triggerMesh1 = new THREE.Mesh(triggerGeometry1);
 triggerMesh1.position.copy(triggerPosition1);
-scene.add(triggerMesh1);
 const triggerBoundingBox1 = new THREE.Box3().setFromObject(triggerMesh1);
 
 const triggerPosition2 = new THREE.Vector3(-30.99, 12, 42); // Posición del trigger
 const triggerSize2 = new THREE.Vector3(1, 1, 1); // Tamaño del trigger
 
 const triggerGeometry2 = new THREE.BoxGeometry(triggerSize2.x, triggerSize2.y, triggerSize2.z);
-const triggerMaterial2 = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true, visible: true }); // Visible para debug
-const triggerMesh2 = new THREE.Mesh(triggerGeometry2, triggerMaterial2);
+const triggerMesh2 = new THREE.Mesh(triggerGeometry2);
 triggerMesh2.position.copy(triggerPosition2);
-scene.add(triggerMesh2);
 const triggerBoundingBox2 = new THREE.Box3().setFromObject(triggerMesh2);
 
 const triggerPosition3 = new THREE.Vector3(-45.90, 12.52, -64.7643); // Posición del trigger
 const triggerSize3 = new THREE.Vector3(1, 1, 1); // Tamaño del trigger
 
 const triggerGeometry3 = new THREE.BoxGeometry(triggerSize3.x, triggerSize3.y, triggerSize3.z);
-const triggerMaterial3 = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true, visible: true }); // Visible para debug
-const triggerMesh3 = new THREE.Mesh(triggerGeometry3, triggerMaterial3);
+const triggerMesh3 = new THREE.Mesh(triggerGeometry3, );
 triggerMesh3.position.copy(triggerPosition3);
-scene.add(triggerMesh3);
 const triggerBoundingBox3 = new THREE.Box3().setFromObject(triggerMesh3);
 
 // CAMERA
@@ -283,9 +275,6 @@ loader.load('steveRigV3_2.glb', function (gltf) {
 
     // Crear la caja de colisión del personaje
     characterBoundingBox = new THREE.Box3().setFromObject(model);
-     // Agregar un BoxHelper para visualizar la caja del personaje
-     characterHelper = new THREE.BoxHelper(model, 0x00ff00); // Verde para el personaje
-     scene.add(characterHelper);
 
      model.traverse((object) => {
         if (object.isMesh) {
@@ -308,7 +297,6 @@ const platformHelpers = [plane1, plane2, plane3, plane4, plane5, plane6, plane7,
                         ,plane17, plane18,plane19,plane20,plane21,plane22,plane23,plane24
                         ,plane25,plane26,plane27].map((plane) => {
     const helper = new THREE.BoxHelper(plane, 0xff0000); // Rojo para las cajas de los planos
-    scene.add(helper);
     return helper;
 });
 
@@ -382,12 +370,6 @@ function animate() {
     orbitControls.update();
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
-
-    platformBoundingBoxes.forEach((platformBoundingBox, index) => {
-        platformHelpers[index].update(); // Actualizar los helpers de las plataformas
-    });
-    if (characterHelper) characterHelper.update(); // Actualizar el helper del personaje
-    
 }
 
 document.body.appendChild(renderer.domElement);
