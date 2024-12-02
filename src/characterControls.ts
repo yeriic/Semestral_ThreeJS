@@ -1,6 +1,12 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { A, D, DIRECTIONS, S, W } from './utils';
+export const W = 'w'
+export const A = 'a'
+export const S = 's'
+export const D = 'd'
+export const SHIFT = 'shift'
+export const SPACE = 'space'
+export const DIRECTIONS = [W, A, S, D]
 
 export class CharacterControls {
     model: THREE.Group;
@@ -22,11 +28,11 @@ export class CharacterControls {
     fadeDuration: number = 0.2;
     runVelocity = 10;
     walkVelocity = 10;
-    isJumping: boolean = false; // Estado para controlar si está en salto
-    jumpHeight = 3; // Altura máxima del salto
-    jumpDuration = 0.6; // Duración del salto en segundos
-    jumpStartTime: number = 0; // Tiempo de inicio del salto
-    initialY: number = 2; // NUEVO: Altura inicial del personaje
+    isJumping: boolean = false; 
+    jumpHeight = 3; 
+    jumpDuration = 0.6;
+    jumpStartTime: number = 0; 
+    initialY: number = 2;
     
     constructor(
         model: THREE.Group,
@@ -54,9 +60,9 @@ export class CharacterControls {
         const directionPressed = DIRECTIONS.some((key) => keysPressed[key] == true);
 
         let play = '';
-        if (this.isJumping) { // Priorizar la animación de salto
+        if (this.isJumping) { 
             play = 'Jump';
-        } else if (keysPressed[' ']) { // Detectar tecla de salto
+        } else if (keysPressed[' ']) {
             this.isJumping = true;
             this.jumpStartTime = performance.now();
             play = 'Jump';
@@ -78,20 +84,20 @@ export class CharacterControls {
 
         this.mixer.update(delta);
 
-        if (this.isJumping) { // Aplicar la lógica de salto
+        if (this.isJumping) { 
             const elapsedTime = (performance.now() - this.jumpStartTime) / 1000;
             const jumpProgress = elapsedTime / this.jumpDuration;
 
-            if (jumpProgress >= 1) { // Finalizar el salto
+            if (jumpProgress >= 1) { 
                 this.isJumping = false;
-                this.model.position.y = this.initialY; // NUEVO: Restaurar altura inicial
+                this.model.position.y = this.initialY;
             } else {
-                const height = this.jumpHeight * Math.sin(Math.PI * jumpProgress); // Trayectoria parabólica
-                this.model.position.y = this.initialY + height; // MODIFICADO: Sumar la altura inicial
+                const height = this.jumpHeight * Math.sin(Math.PI * jumpProgress); 
+                this.model.position.y = this.initialY + height; 
             }
         }
 
-        if (this.currentAction == 'Walk' || this.isJumping) { // Continuar movimiento durante el salto
+        if (this.currentAction == 'Walk' || this.isJumping) { 
             const angleYCameraDirection =
                 Math.atan2(this.camera.position.x - this.model.position.x, this.camera.position.z - this.model.position.z) +
                 Math.PI;
@@ -115,11 +121,11 @@ export class CharacterControls {
     }
 
     private updateCameraTarget(moveX: number, moveZ: number) {
-        // move camera
+       
         this.camera.position.x += moveX;
         this.camera.position.z += moveZ;
 
-        // update camera target
+       
         this.cameraTarget.x = this.model.position.x;
         this.cameraTarget.y = this.model.position.y + 1;
         this.cameraTarget.z = this.model.position.z;

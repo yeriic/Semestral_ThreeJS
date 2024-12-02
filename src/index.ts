@@ -2,14 +2,14 @@ import { CharacterControls } from './characterControls.js';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { plane, plane1, plane2, plane3, plane4, plane5, plane6, plane7, plane8,plane9,plane10 } from './geometrias/plano.js';
+import { plane, plane1, plane2, plane3, plane4, plane5, plane6, plane7, plane8,plane9,plane10, plane11, plane12,plane13, plane14, plane15, plane16, plane17, plane18, plane19, plane20, plane21, plane22, plane23, plane24, plane25, plane26, plane27 } from './geometrias/plano.js';
 
 
 // SCENE
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xa8def0);
 
-scene.add(plane1, plane2, plane3, plane3,plane4, plane5,plane6,plane7,plane8,plane9,plane10);
+scene.add(plane1, plane2, plane3, plane3,plane4, plane5,plane6,plane7,plane8,plane9,plane10, plane11, plane12, plane13);
 
 
 //posiciones
@@ -52,6 +52,79 @@ plane9.position.z = 35.01;
 plane10.position.x = 53.45;
 plane10.position.y = 6.11;
 plane10.position.z = 35.01;
+
+plane11.position.x = 57.81;
+plane11.position.y = 14.50;
+plane11.position.z = -43.16;
+
+plane12.position.x = 49.62;
+plane12.position.y = 12.85;
+plane12.position.z = -42.64;
+
+plane13.position.x = 47.62;
+plane13.position.y = 12.99;
+plane13.position.z = -42.64;
+
+plane14.position.x = 43.62;
+plane14.position.y = 11.70;
+plane14.position.z = -42.64;
+
+plane15.position.x = 39.90;
+plane15.position.y = 10.15;
+plane15.position.z = -42.64;
+
+plane16.position.x = 35.90;
+plane16.position.y = 8.65;
+plane16.position.z = -42.64;
+
+plane17.position.x = 25.90;
+plane17.position.y = 8.65;
+plane17.position.z = -42.64;
+
+plane18.position.x = -63.727;
+plane18.position.y = 6.1;
+plane18.position.z = 35.85;
+
+plane18.position.x = -63.727;
+plane18.position.y = 6.1;
+plane18.position.z = 35.85;
+
+plane19.position.x = -51.727;
+plane19.position.y = 6.1;
+plane19.position.z = 35.85;
+
+plane20.position.x = -48.10;
+plane20.position.y = 7.70;
+plane20.position.z = 35.85;
+
+plane21.position.x = -44.0;
+plane21.position.y = 9.30;
+plane21.position.z = 35.85;
+
+plane22.position.x = -32.0;
+plane22.position.y = 10.80;
+plane22.position.z = 35.85;
+
+plane23.position.x = -46.31;
+plane23.position.y = 7.40;
+plane23.position.z = -26.17;
+
+plane24.position.x = -45.75;
+plane24.position.y = 7.40;
+plane24.position.z = -38.17;
+
+plane25.position.x = -45.75;
+plane25.position.y = 8.95;
+plane25.position.z = -42.17;
+
+plane26.position.x = -45.75;
+plane26.position.y = 10.45;
+plane26.position.z = -46.17;
+
+plane27.position.x = -45.75;
+plane27.position.y = 12;
+plane27.position.z = -58.17;
+
 //rotaciones
 plane1.rotation.x = -Math.PI / 2;
 
@@ -72,6 +145,40 @@ plane8.rotation.x = -Math.PI / 2;
 plane9.rotation.x = -Math.PI / 2;
 
 plane10.rotation.x = -Math.PI / 2;
+
+plane11.rotation.x = -Math.PI / 2;
+
+plane12.rotation.x = -Math.PI / 2;
+
+plane13.rotation.x = -Math.PI / 2;
+
+plane14.rotation.x = -Math.PI / 2;
+
+plane15.rotation.x = -Math.PI / 2;
+
+plane16.rotation.x = -Math.PI / 2;
+
+plane17.rotation.x = -Math.PI / 2;
+
+plane18.rotation.x = -Math.PI / 2;
+
+plane19.rotation.x = -Math.PI / 2;
+
+plane20.rotation.x = -Math.PI / 2;
+
+plane21.rotation.x = -Math.PI / 2;
+
+plane22.rotation.x = -Math.PI / 2;
+
+plane23.rotation.x = -Math.PI / 2;
+
+plane24.rotation.x = -Math.PI / 2;
+
+plane25.rotation.x = -Math.PI / 2;
+
+plane26.rotation.x = -Math.PI / 2;
+
+plane27.rotation.x = -Math.PI / 2;
 
 // Crear el trigger (por ejemplo, un cubo invisible)
 const triggerPosition = new THREE.Vector3(35.11, 9.14, 30.82); // Posición del trigger
@@ -134,7 +241,7 @@ loader.load('steveRigV3_2.glb', function (gltf) {
     });
     scene.add(model);
 
-    model.position.set(46, 2, 65);
+    model.position.set(-46.31, 7, -26.17);
     model.scale.set(1.5, 1.5, 1.5);
     
 
@@ -165,9 +272,15 @@ loader.load('steveRigV3_2.glb', function (gltf) {
 });
 
 // Crear las cajas de colisión para los planos
-const platformBoundingBoxes = [plane1, plane2, plane3, plane4, plane5, plane6, plane7,plane8,plane9,plane10].map(plane => new THREE.Box3().setFromObject(plane));
+const platformBoundingBoxes =   [plane1, plane2, plane3, plane4, plane5, plane6, plane7,plane8,
+                                plane9,plane10, plane11, plane12,plane13, plane14, plane15
+                                ,plane16, plane17,plane18,plane19,plane20,plane21,plane22,
+                                plane23,plane24,plane25,plane26,plane27].map(plane => new THREE.Box3().setFromObject(plane));
 
-const platformHelpers = [plane1, plane2, plane3, plane4, plane5, plane6, plane7,plane8,plane9,plane10].map((plane) => {
+const platformHelpers = [plane1, plane2, plane3, plane4, plane5, plane6, plane7,plane8,
+                        plane9,plane10,plane11,plane12,plane13,plane14, plane15,plane16
+                        ,plane17, plane18,plane19,plane20,plane21,plane22,plane23,plane24
+                        ,plane25,plane26,plane27].map((plane) => {
     const helper = new THREE.BoxHelper(plane, 0xff0000); // Rojo para las cajas de los planos
     scene.add(helper);
     return helper;
