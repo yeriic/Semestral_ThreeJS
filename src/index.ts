@@ -316,8 +316,7 @@ const clock = new THREE.Clock();
 function animate() {
     const mixerUpdateDelta = clock.getDelta();
     if (characterControls) {
-        characterControls.update(mixerUpdateDelta, keysPressed);
-
+        characterControls.update(mixerUpdateDelta, keysPressed);{}
 
         if (characterMesh) {
             characterBoundingBox.setFromObject(characterMesh);

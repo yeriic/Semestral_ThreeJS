@@ -28,11 +28,11 @@ export class CharacterControls {
     fadeDuration: number = 0.2;
     runVelocity = 10;
     walkVelocity = 10;
-    isJumping: boolean = false; 
-    jumpHeight = 3; 
-    jumpDuration = 0.6;
-    jumpStartTime: number = 0; 
-    initialY: number = 2;
+    isJumping: boolean = false; // Estado para controlar si está en salto
+    jumpHeight = 8; // Altura máxima del salto
+    jumpDuration = 0.9; // Duración del salto en segundos
+    jumpStartTime: number = 0; // Tiempo de inicio del salto
+    initialY: number = 2; // NUEVO: Altura inicial del personaje
     
     constructor(
         model: THREE.Group,
@@ -60,9 +60,9 @@ export class CharacterControls {
         const directionPressed = DIRECTIONS.some((key) => keysPressed[key] == true);
 
         let play = '';
-        if (this.isJumping) { 
+        if (this.isJumping) { // Priorizar la animación de salto
             play = 'Jump';
-        } else if (keysPressed[' ']) {
+        } else if (keysPressed[' ']) { // Detectar tecla de salto
             this.isJumping = true;
             this.jumpStartTime = performance.now();
             play = 'Jump';
@@ -84,20 +84,20 @@ export class CharacterControls {
 
         this.mixer.update(delta);
 
-        if (this.isJumping) { 
+        if (this.isJumping) { // Aplicar la lógica de salto
             const elapsedTime = (performance.now() - this.jumpStartTime) / 1000;
             const jumpProgress = elapsedTime / this.jumpDuration;
 
-            if (jumpProgress >= 1) { 
+            if (jumpProgress >= 1) { // Finalizar el salto
                 this.isJumping = false;
-                this.model.position.y = this.initialY;
+                this.model.position.y = this.initialY; // NUEVO: Restaurar altura inicial
             } else {
-                const height = this.jumpHeight * Math.sin(Math.PI * jumpProgress); 
-                this.model.position.y = this.initialY + height; 
+                const height = this.jumpHeight * Math.sin(Math.PI * jumpProgress); // Trayectoria parabólica
+                this.model.position.y = this.initialY + height; // MODIFICADO: Sumar la altura inicial
             }
         }
 
-        if (this.currentAction == 'Walk' || this.isJumping) { 
+        if (this.currentAction == 'Walk' || this.isJumping) { // Continuar movimiento durante el salto
             const angleYCameraDirection =
                 Math.atan2(this.camera.position.x - this.model.position.x, this.camera.position.z - this.model.position.z) +
                 Math.PI;
@@ -121,16 +121,21 @@ export class CharacterControls {
     }
 
     private updateCameraTarget(moveX: number, moveZ: number) {
-       
+        // Actualizar posición de la cámara
         this.camera.position.x += moveX;
         this.camera.position.z += moveZ;
-
-       
+    
+        // Actualizar objetivo de la cámara
         this.cameraTarget.x = this.model.position.x;
-        this.cameraTarget.y = this.model.position.y + 1;
+        this.cameraTarget.y = this.model.position.y + 1; // Seguir la altura del modelo
         this.cameraTarget.z = this.model.position.z;
         this.orbitControl.target = this.cameraTarget;
+    
+        // Actualizar controles de la cámara para reflejar los cambios
+        this.orbitControl.update();
     }
+    
+    
 
     private directionOffset(keysPressed: any) {
         let directionOffset = 0; // w
